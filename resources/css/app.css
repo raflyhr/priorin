@@ -141,3 +141,43 @@
         @apply bg-background text-foreground;
     }
 }
+
+.landing-page main section {
+    background-color: rgb(248 249 250 / 68%);
+}
+
+.dark .landing-page section:not(#cta) {
+    background-color: rgb(11 16 32 / 68%);
+}
+
+.dark .landing-page footer {
+    background-color: #0b1020;
+}
+
+.dark .landing-page article:not(.bg-\[\#191c1d\]):not(.bg-\[\#0021e4\]),
+.dark .landing-page details,
+.dark .landing-page button.bg-white {
+    background-color: #151b2d;
+    color: #f0f1f2;
+}
+
+.dark .landing-page .text-\[\#444557\] {
+    color: #aeb6cc;
+}
+
+.dark .landing-page .border-\[\#191c1d\] {
+    border-color: #657093;
+}
+
+.dark .landing-page .bg-\[\#edeeef\],
+.dark .landing-page .bg-\[\#f3f4f5\] {
+    background-color: #20283d;
+}
+
+.dark .landing-page nav.bg-\[\#f8f9fa\]\/90 {
+    background-color: rgb(11 16 32 / 90%);
+}
+
+.dark .landing-page footer {
+    border-color: #2e3132;
+}
