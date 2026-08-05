@@ -34,21 +34,21 @@ const problems = [
 
 const steps = [
     {
-        number: '01',
+        number: '',
         title: 'Input Preferensi',
         description:
             'Ceritakan pada AI kami tentang minat Anda, tingkat kelelahan saat ini, dan target yang ingin dicapai selama liburan semester.',
         image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAz9ektHYdkdkgsKxC-_YoLFRj5Auu5PHcOXu4mk02v2HVy7-4anrYgM66vnZsGxZUwW8i1fiQAw4d-oPuHy0Q_ZwRzFR5cgKJcjF4643qtUq_lrsEnkirZLHQEJeqLub7DVkDXZgzVMLv5fSROcYUI11dy-T9mJZqk7i0gGHt_OXQvV_H7X6bPrVLxjUFCsfwUQCwe1d9IipOKNZxWLhpqw5jv6s679RX3HhoO8sPo0oc2PAV1Vaw',
     },
     {
-        number: '02',
+        number: '',
         title: 'Analisis AI',
         description:
             'Algoritma Priorin menghitung alokasi waktu optimal untuk belajar, hobi, dan istirahat total berdasarkan data psikologi kognitif.',
         image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAMoD03NuOQeQfR-SSqZfawFcvzpBGQgbr_ScUekhzn2E9evtjDsKrorGOyNoed2kNNyPIcA9EyQ389q-e4RnAz9S-nWfyi_JXAROh4Wa3-dyNpaQ-A2XvVyLmesZ6NXCVm4EL8X_s-toASC30Y2eDDN57S_IzrW7LAzeAbx9pHrhD4IhEXPpdJ6UFc0HmGi7PnSk_hEY5u75ckeGv1gHSyslHDANmc8kf3IGf9w6KvLgMpqyLRcXg',
     },
     {
-        number: '03',
+        number: '',
         title: 'Eksekusi & Pantau',
         description:
             'Dapatkan jadwal harian yang dinamis. Jika Anda merasa lelah, AI akan menyesuaikan jadwal hari berikutnya secara otomatis.',
@@ -59,7 +59,7 @@ const steps = [
 const testimonials = [
     {
         quote: 'Dulu liburan cuma scroll TikTok seharian sampai pusing, sekarang waktu saya jauh lebih bermakna dan teratur.',
-        author: 'ADITYA, UI',
+        author: 'REHAN, AMIKOM',
     },
     {
         quote: 'Priorin membantu saya belajar Python sambil tetap punya waktu buat marathon series tanpa rasa bersalah.',
