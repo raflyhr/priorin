@@ -101,6 +101,7 @@ const headline =
 export default function LandingPage() {
     const [activeLink, setActiveLink] = useState(navigation[0].id);
     const [hasScrolled, setHasScrolled] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { resolvedAppearance, updateAppearance } = useAppearance();
     const isDark = resolvedAppearance === 'dark';
 
@@ -158,7 +159,7 @@ export default function LandingPage() {
                         className={`shrink-0 transition-all duration-500 ${
                             hasScrolled
                                 ? 'translate-x-0 opacity-100'
-                                : 'pointer-events-none -translate-x-4 opacity-0'
+                                : 'pointer-events-none -translate-x-4 opacity-0 max-md:pointer-events-auto max-md:translate-x-0 max-md:opacity-100'
                         }`}
                     >
                         <img
@@ -179,7 +180,7 @@ export default function LandingPage() {
                             <a
                                 key={id}
                                 href={`#${id}`}
-                                className={`${label} rounded-full px-6 py-3 transition-colors duration-200 ${
+                                className={`${label} rounded-full px-3 py-3 transition-colors duration-200 lg:px-6 ${
                                     activeLink === id
                                         ? hasScrolled
                                             ? 'border-b-2 border-[#0021e4] text-[#0021e4]'
@@ -195,7 +196,34 @@ export default function LandingPage() {
                         ))}
                     </nav>
 
-                    <div className="flex items-center gap-4">
+                    <nav
+                        aria-label="Navigasi mobile"
+                        className={`absolute top-full right-4 left-4 flex flex-col border-2 border-[#191c1d] bg-[#f8f9fa] p-2 shadow-[4px_4px_0_0_#000] transition-all duration-300 md:hidden dark:border-[#657093] dark:bg-[#151b2d] dark:shadow-[4px_4px_0_0_#0021e4] ${
+                            isMenuOpen
+                                ? 'visible translate-y-0 opacity-100'
+                                : 'invisible -translate-y-2 opacity-0'
+                        }`}
+                    >
+                        {navigation.map(({ id, label: itemLabel }) => (
+                            <a
+                                key={id}
+                                href={`#${id}`}
+                                className={`${label} border-b border-[#c5c5da] px-4 py-4 text-left last:border-b-0 dark:border-[#444557] ${
+                                    activeLink === id
+                                        ? 'bg-[#0021e4] text-white'
+                                        : 'text-[#444557] dark:text-[#aeb6cc]'
+                                }`}
+                                onClick={() => {
+                                    setActiveLink(id);
+                                    setIsMenuOpen(false);
+                                }}
+                            >
+                                {itemLabel}
+                            </a>
+                        ))}
+                    </nav>
+
+                    <div className="flex items-center gap-3 md:gap-4">
                         <button
                             type="button"
                             aria-label={
@@ -213,9 +241,20 @@ export default function LandingPage() {
                                 {isDark ? 'light_mode' : 'dark_mode'}
                             </span>
                         </button>
+                        <button
+                            type="button"
+                            aria-label={isMenuOpen ? 'Tutup menu' : 'Buka menu'}
+                            aria-expanded={isMenuOpen}
+                            onClick={() => setIsMenuOpen((open) => !open)}
+                            className="flex size-11 items-center justify-center border-2 border-[#191c1d] bg-[#f8f9fa] shadow-[4px_4px_0_0_#000] md:hidden dark:border-[#657093] dark:bg-[#151b2d] dark:text-white dark:shadow-[4px_4px_0_0_#0021e4]"
+                        >
+                            <span className="material-symbols-outlined">
+                                {isMenuOpen ? 'close' : 'menu'}
+                            </span>
+                        </button>
                         <a
                             href="#cta"
-                            className={`${label} bg-[#0021e4] px-4 py-3 text-white shadow-[4px_4px_0_0_#000] transition-all duration-500 active:translate-x-1 active:translate-y-1 active:shadow-none md:px-6 ${
+                            className={`${label} hidden bg-[#0021e4] px-4 py-3 text-white shadow-[4px_4px_0_0_#000] transition-all duration-500 active:translate-x-1 active:translate-y-1 active:shadow-none md:block md:px-6 ${
                                 hasScrolled
                                     ? 'translate-x-0 opacity-100'
                                     : 'pointer-events-none translate-x-4 opacity-0'
@@ -244,9 +283,64 @@ export default function LandingPage() {
                         cellRadius={0}
                         clickPulse
                         pulseSpeed={600}
-                        className="pointer-events-none fixed inset-x-0 top-[66px] bottom-0 z-0"
+                        className="pointer-events-none fixed inset-x-0 top-[116px] bottom-0 z-0 md:top-[66px]"
                     />
                     <section className="relative flex min-h-[819px] flex-col items-center justify-center overflow-hidden px-4 py-20 text-center md:px-8">
+                        <div className="landing-float pointer-events-none absolute top-32 left-[6%] hidden w-52 border-2 border-[#191c1d] bg-white p-4 text-left shadow-[6px_6px_0_0_#000] [--float-duration:6.5s] [--float-rotate:-6deg] [--float-tilt:2deg] lg:block dark:border-[#657093] dark:bg-[#151b2d] dark:shadow-[6px_6px_0_0_#0021e4]">
+                            <div className="mb-3 flex items-center justify-between font-['JetBrains_Mono'] text-[10px] tracking-widest text-[#444557] uppercase dark:text-[#aeb6cc]">
+                                <span>Battery Level</span>
+                                <span className="text-[#0021e4]">82%</span>
+                            </div>
+                            <div className="mb-3 h-4 border-2 border-[#191c1d] p-0.5 dark:border-[#657093]">
+                                <div className="h-full w-[82%] bg-[#0021e4]" />
+                            </div>
+                            <p className="font-['JetBrains_Mono'] text-[10px] text-[#444557] uppercase dark:text-[#aeb6cc]">
+                                Energy: ready to focus
+                            </p>
+                        </div>
+                        <div className="landing-float landing-float-delay-1 pointer-events-none absolute top-44 right-[7%] hidden w-56 border-2 border-[#191c1d] bg-[#e1e3e4] p-4 text-left shadow-[6px_6px_0_0_#000] [--float-duration:7.2s] [--float-rotate:6deg] [--float-tilt:-2deg] lg:block dark:border-[#657093] dark:bg-[#20283d] dark:shadow-[6px_6px_0_0_#0021e4]">
+                            <div className="mb-3 flex items-center gap-2 font-['JetBrains_Mono'] text-[10px] font-bold tracking-widest uppercase">
+                                <span className="material-symbols-outlined text-base text-[#0021e4]">
+                                    auto_awesome
+                                </span>
+                                AI PRIORIN
+                            </div>
+                            <p className="font-['Archivo_Narrow'] text-xl font-bold uppercase">
+                                Your day, balanced.
+                            </p>
+                            <div className="mt-4 flex gap-1">
+                                <span className="h-2 w-10 bg-[#0021e4]" />
+                                <span className="h-2 w-6 bg-[#bdc2ff]" />
+                                <span className="h-2 w-14 bg-[#191c1d] dark:bg-[#aeb6cc]" />
+                            </div>
+                        </div>
+                        <div className="landing-float landing-float-delay-2 pointer-events-none absolute bottom-28 left-[11%] hidden w-48 border-2 border-[#191c1d] bg-[#0021e4] p-4 text-left text-white shadow-[6px_6px_0_0_#000] [--float-duration:5.8s] [--float-rotate:3deg] [--float-tilt:-1deg] lg:block">
+                            <p className="font-['JetBrains_Mono'] text-[10px] tracking-widest uppercase opacity-80">
+                                Today&apos;s plan
+                            </p>
+                            <p className="mt-2 font-['Archivo_Narrow'] text-2xl font-bold uppercase">
+                                Rest / Learn / Explore
+                            </p>
+                        </div>
+                        <div className="landing-float landing-float-delay-3 pointer-events-none absolute right-[11%] bottom-32 hidden w-44 border-2 border-[#191c1d] bg-white p-4 text-left shadow-[6px_6px_0_0_#000] [--float-duration:6.8s] [--float-rotate:-3deg] [--float-tilt:2deg] lg:block dark:border-[#657093] dark:bg-[#151b2d] dark:shadow-[6px_6px_0_0_#0021e4]">
+                            <div className="mb-3 grid grid-cols-7 gap-1 font-['JetBrains_Mono'] text-[9px] text-[#444557] dark:text-[#aeb6cc]">
+                                {['M', 'T', 'W', 'T', 'F', 'S', 'S'].map(
+                                    (day, index) => (
+                                        <span key={`${day}-${index}`}>
+                                            {day}
+                                        </span>
+                                    ),
+                                )}
+                            </div>
+                            <div className="grid grid-cols-7 gap-1">
+                                {[...Array(14)].map((_, index) => (
+                                    <span
+                                        key={index}
+                                        className={`h-4 ${index === 8 ? 'bg-[#0021e4]' : index % 3 === 0 ? 'bg-[#bdc2ff]' : 'bg-[#e1e3e4] dark:bg-[#2e3132]'}`}
+                                    />
+                                ))}
+                            </div>
+                        </div>
                         <div className="relative z-10 max-w-4xl">
                             <h1 className="mb-6 font-['Archivo_Narrow'] text-5xl leading-[0.9] font-extrabold tracking-[-0.04em] uppercase sm:text-6xl md:text-7xl">
                                 Tingkatkan Kualitas
@@ -264,19 +358,19 @@ export default function LandingPage() {
                             <div className="flex flex-col justify-center gap-6 sm:flex-row">
                                 <a
                                     href="#cta"
-                                    className={`${border} ${hoverShadow} ${label} bg-[#0021e4] px-8 py-5 text-center text-base text-white shadow-[4px_4px_0_0_#000]`}
+                                    className={`${border} ${hoverShadow} ${label} w-full bg-[#0021e4] px-8 py-5 text-center text-base text-white shadow-[4px_4px_0_0_#000] sm:w-auto`}
                                 >
                                     Mulai Gratis Sekarang
                                 </a>
-                                <button
-                                    type="button"
-                                    className={`${border} ${hoverShadow} ${label} flex items-center justify-center gap-2 bg-white px-8 py-5 text-base shadow-[4px_4px_0_0_#000]`}
+                                <a
+                                    href="#langkah"
+                                    className={`${border} ${hoverShadow} ${label} flex w-full items-center justify-center gap-2 bg-white px-8 py-5 text-base text-[#191c1d] shadow-[4px_4px_0_0_#000] sm:w-auto dark:border-[#657093] dark:bg-[#151b2d] dark:text-white dark:shadow-[4px_4px_0_0_#0021e4]`}
                                 >
                                     <span className="material-symbols-outlined">
                                         play_circle
                                     </span>
                                     Lihat Demo
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </section>
@@ -316,7 +410,10 @@ export default function LandingPage() {
                         </div>
                     </section>
 
-                    <section className="px-4 py-20 md:px-8">
+                    <section
+                        id="langkah"
+                        className="scroll-mt-20 px-4 py-20 md:px-8"
+                    >
                         <h2 className={`${headline} mb-16 text-center`}>
                             3 Langkah Menuju Liburan Bermakna
                         </h2>
@@ -331,7 +428,7 @@ export default function LandingPage() {
                                     }`}
                                 >
                                     <div className="w-full md:w-1/2">
-                                        <div className="mb-[-40px] ml-[-20px] font-['Archivo_Narrow'] text-8xl font-extrabold text-[#0021e4] opacity-20">
+                                        <div className="mb-[-32px] ml-0 font-['Archivo_Narrow'] text-7xl font-extrabold text-[#0021e4] opacity-20 sm:mb-[-40px] sm:ml-[-20px] sm:text-8xl">
                                             {step.number}
                                         </div>
                                         <h3 className="mb-4 font-['Archivo_Narrow'] text-2xl font-bold uppercase">
@@ -529,7 +626,7 @@ export default function LandingPage() {
                                         className={`${border} group cursor-pointer bg-white p-6 transition-all hover:bg-[#f3f4f5]`}
                                         open={faq.open}
                                     >
-                                        <summary className="flex list-none items-center justify-between font-['Archivo_Narrow'] text-2xl font-bold uppercase">
+                                        <summary className="flex list-none items-center justify-between gap-4 font-['Archivo_Narrow'] text-lg font-bold uppercase md:text-2xl">
                                             {faq.question}
                                             <span className="material-symbols-outlined transition-transform group-open:rotate-180">
                                                 expand_more
@@ -549,9 +646,9 @@ export default function LandingPage() {
                         className="scroll-mt-20 px-4 py-20 md:px-8"
                     >
                         <div
-                            className={`${border} ${shadow} relative overflow-hidden bg-[#0021e4] p-12 text-center text-white md:p-24`}
+                            className={`${border} ${shadow} relative overflow-hidden bg-[#0021e4] p-8 text-center text-white sm:p-12 md:p-24`}
                         >
-                            <h2 className="mb-8 font-['Archivo_Narrow'] text-5xl leading-none font-extrabold tracking-[-0.04em] uppercase md:text-7xl">
+                            <h2 className="mb-8 font-['Archivo_Narrow'] text-4xl leading-none font-extrabold tracking-[-0.04em] uppercase sm:text-5xl md:text-7xl">
                                 Siap Mengubah
                                 <br />
                                 Liburan Anda?

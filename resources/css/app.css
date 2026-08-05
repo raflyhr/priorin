@@ -150,6 +150,10 @@
     background-color: rgb(11 16 32 / 68%);
 }
 
+.landing-page main #cta {
+    background-color: #0b1020;
+}
+
 .dark .landing-page footer {
     background-color: #0b1020;
 }
@@ -180,4 +184,39 @@
 
 .dark .landing-page footer {
     border-color: #2e3132;
+}
+
+@keyframes landing-float {
+    0%,
+    100% {
+        transform: translate3d(0, 0, 0) rotate(var(--float-rotate, 0deg));
+    }
+
+    50% {
+        transform: translate3d(0, -12px, 0)
+            rotate(calc(var(--float-rotate, 0deg) + var(--float-tilt, 1deg)));
+    }
+}
+
+.landing-float {
+    animation: landing-float var(--float-duration, 6s) ease-in-out infinite;
+    will-change: transform;
+}
+
+.landing-float-delay-1 {
+    animation-delay: -1.2s;
+}
+
+.landing-float-delay-2 {
+    animation-delay: -2.4s;
+}
+
+.landing-float-delay-3 {
+    animation-delay: -3.6s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .landing-float {
+        animation: none;
+    }
 }
